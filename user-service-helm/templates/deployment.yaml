@@ -21,10 +21,9 @@ spec:
       - env:
         - name: KUBERNETES_CLUSTER_DOMAIN
           value: {{ quote .Values.kubernetesClusterDomain }}
-        image: {{ .Values.deployment.userService.image.repository }}:{{ .Values.deployment.userService.image.tag
-          | default .Chart.AppVersion }}
+        image: {{ .Values.deployment.userService.image.repository }}:{{ .Values.deployment.userService.image.tag }}
         imagePullPolicy: {{ .Values.deployment.userService.imagePullPolicy }}
-        name: {{ .Values.deployment.userService.name }}
+        name: {{ .Values.service.name }}
         ports:
         - containerPort: {{ .Values.service.ports[0].port }}
           name: user-service-port
