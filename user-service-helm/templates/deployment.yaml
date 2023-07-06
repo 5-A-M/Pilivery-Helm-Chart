@@ -25,10 +25,8 @@ spec:
         imagePullPolicy: {{ .Values.deployment.userService.imagePullPolicy }}
         name: {{ .Values.service.name }}
         ports:
-        {{- range .Values.service.ports }}
-        - containerPort: {{ $port }}
+        - containerPort: 8080
           name: user-service-port
-        {{- end }}
         resources: {}
       imagePullSecrets:
       - name: regcred
