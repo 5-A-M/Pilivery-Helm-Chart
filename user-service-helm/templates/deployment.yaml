@@ -19,13 +19,7 @@ spec:
     spec:
       containers:
       - name: {{ .Values.service.name }}
-        image: $(ECR_ADDRESS)/{{ .Values.service.name }}:{{ .Values.deployment.userService.image.tag }}
-        env:
-          - name: ECR_ADDRESS
-            valueFrom:
-              secretKeyRef:
-                name: ecr-secret
-                key: ecr-address
+        image: {{tpl .Values.deployment.userService.image.repository | b64dec }}/{{ .Values.service.name }}:{{ .Values.deployment.userService.image.tag }}
         imagePullPolicy: {{ .Values.deployment.userService.imagePullPolicy }}
         ports:
           - name: user-service
