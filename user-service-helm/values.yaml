@@ -1,0 +1,17 @@
+deployment:
+  name: user-service
+  replicas: 2
+  userService:
+    image:
+      repository:
+        address: ecr-secret
+        field: ecr-address
+      tag: "98"
+    imagePullPolicy: Always
+kubernetesClusterDomain: cluster.local
+service:
+  name: user-service
+  ports:
+  - port: 8080
+    targetPort: 0
+  type: ClusterIP
