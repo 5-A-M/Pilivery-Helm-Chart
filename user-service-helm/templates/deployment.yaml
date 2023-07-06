@@ -18,10 +18,8 @@ spec:
       {{- include "user-service-helm.selectorLabels" . | nindent 8 }}
     spec:
       containers:
-      - env:
-        - name: KUBERNETES_CLUSTER_DOMAIN
-          value: {{ quote .Values.kubernetesClusterDomain }}
-        image: ${ECR_ADDRESS}:{{ .Values.deployment.userService.image.tag }}
+      - name: {{ .Values.service.name }}
+        image: ${ECR_ADDRESS}/{{ .Values.service.name }}:{{ .Values.deployment.userService.image.tag }}
         env:
           - name: ECR_ADDRESS
             valueFrom:
@@ -29,10 +27,8 @@ spec:
                 name: ecr-secret
                 key: ecr-address
         imagePullPolicy: {{ .Values.deployment.userService.imagePullPolicy }}
-        name: {{ .Values.service.name }}
         ports:
-        - containerPort: 8080
-          name: user-service-port
-        resources: {}
+          - name: user-service
+            containerPort: 8080
       imagePullSecrets:
-      - name: regcred
+          - name: regcred
