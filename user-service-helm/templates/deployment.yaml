@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
       - name: {{ .Values.service.name }}
-        image: {{ tpl (lookup .Values.deployment.userService.image.repository $) . | b64dec }}/{{ .Values.service.name }}:{{ .Values.deployment.userService.image.tag }}
+        image: {{ tpl (lookup .Values.deployment.userService.image.repository . "") . | b64dec }}/{{ .Values.service.name }}:{{ .Values.deployment.userService.image.tag }}
         imagePullPolicy: {{ .Values.deployment.userService.imagePullPolicy }}
         ports:
           - name: user-service
