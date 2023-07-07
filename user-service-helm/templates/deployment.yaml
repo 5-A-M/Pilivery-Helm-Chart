@@ -19,10 +19,10 @@ spec:
     spec:
       containers:
       - name: {{ .Values.service.name }}
-        image: "{{ .Values.imageFromSecret }}"/{{ .Values.service.name }}:{{ .Values.deployment.userService.image.tag }}
+        image: {{ .Values.imageFromSecret }}/{{ .Values.service.name }}:{{ .Values.deployment.userService.image.tag }}
         imagePullPolicy: {{ .Values.deployment.userService.imagePullPolicy }}
         ports:
-          - name: user-service
+          - name: {{ .Values.service.name }}
             containerPort: 8080
       imagePullSecrets:
       - name: regcred
