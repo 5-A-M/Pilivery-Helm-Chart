@@ -25,4 +25,4 @@ spec:
           - name: user-service
             containerPort: 8080
       imagePullSecrets:
-          - name: regcred
+      - name: regcred
