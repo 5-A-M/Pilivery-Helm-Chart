@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
       - name: {{ .Values.service.name }}
-        image: "{{ $.Values.deployment.itemService.image.repository }}:{{ $.Values.deployment.orderService.image.tag }}"
+        image: "{{ $.Values.deployment.itemService.image.repository }}:{{ $.Values.deployment.itemService.image.tag }}"
         imagePullPolicy: {{ .Values.deployment.itemService.imagePullPolicy }}
         ports:
           - name: {{ .Values.service.name }}
