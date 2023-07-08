@@ -3,7 +3,7 @@ deployment:
   replicas: 2
   userService:
     image:
-      imageFromSecret: "{{- printf \"%s\" (index .data \"url\") | b64dec -}}"
+      repository: 829721034047.dkr.ecr.ap-northeast-2.amazonaws.com/order-service 
       tag: "98"
     imagePullPolicy: Always
 kubernetesClusterDomain: cluster.local
