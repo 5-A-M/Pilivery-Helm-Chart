@@ -3,6 +3,7 @@ deployment:
   replicas: 2
   userService:
     image:
+      imageFromSecret: "{{- printf \"%s\" (index .data \"url\") | b64dec -}}"
       tag: "98"
     imagePullPolicy: Always
 kubernetesClusterDomain: cluster.local
@@ -12,4 +13,3 @@ service:
   - port: 8080
     targetPort: 0
   type: ClusterIP
-imageFromSecret: "{{- printf \"%s\" (index .data \"url\") | b64dec -}}"
