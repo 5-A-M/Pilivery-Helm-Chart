@@ -1,0 +1,14 @@
+deployment:
+  itemService:
+    image:
+      repository: 829721034047.dkr.ecr.ap-northeast-2.amazonaws.com/item-service
+      tag: "13"
+    imagePullPolicy: Always
+  replicas: 1
+kubernetesClusterDomain: cluster.local
+service:
+  name: item-service
+  ports:
+  - port: 8080
+    targetPort: 0
+  type: ClusterIP

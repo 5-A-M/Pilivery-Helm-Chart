@@ -1,7 +1,7 @@
 {{/*
 Expand the name of the chart.
 */}}
-{{- define "demo.name" -}}
+{{- define "order-service-helm.name" -}}
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
@@ -10,7 +10,7 @@ Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 If release name contains chart name it will be used as a full name.
 */}}
-{{- define "demo.fullname" -}}
+{{- define "order-service-helm.fullname" -}}
 {{- if .Values.fullnameOverride }}
 {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
 {{- else }}
@@ -26,16 +26,16 @@ If release name contains chart name it will be used as a full name.
 {{/*
 Create chart name and version as used by the chart label.
 */}}
-{{- define "demo.chart" -}}
+{{- define "order-service-helm.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
 Common labels
 */}}
-{{- define "demo.labels" -}}
-helm.sh/chart: {{ include "demo.chart" . }}
-{{ include "demo.selectorLabels" . }}
+{{- define "order-service-helm.labels" -}}
+helm.sh/chart: {{ include "order-service-helm.chart" . }}
+{{ include "order-service-helm.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
@@ -45,17 +45,17 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{/*
 Selector labels
 */}}
-{{- define "demo.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "demo.name" . }}
+{{- define "order-service-helm.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "order-service-helm.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
 {{/*
 Create the name of the service account to use
 */}}
-{{- define "demo.serviceAccountName" -}}
+{{- define "order-service-helm.serviceAccountName" -}}
 {{- if .Values.serviceAccount.create }}
-{{- default (include "demo.fullname" .) .Values.serviceAccount.name }}
+{{- default (include "order-service-helm.fullname" .) .Values.serviceAccount.name }}
 {{- else }}
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}

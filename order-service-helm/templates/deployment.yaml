@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "order-service-helm.fullname" . }}-deployment
+  labels:
+    app: {{ .Values.service.name }}
+  {{- include "order-service-helm.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.deployment.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Values.service.name }}
+    {{- include "order-service-helm.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.service.name }}
+      {{- include "order-service-helm.selectorLabels" . | nindent 8 }}
+    spec:
+      containers:
+      - env:
+        - name: KUBERNETES_CLUSTER_DOMAIN
+          value: {{ quote .Values.kubernetesClusterDomain }}
+        image: {{ .Values.deployment.orderService.image.repository }}:{{ .Values.deployment.orderService.image.tag | default .Chart.AppVersion }}
+        imagePullPolicy: {{ .Values.deployment.orderService.imagePullPolicy }}
+        {{ .Values.service.name }}
+        ports:
+        - containerPort: 8080
+          {{ .Values.service.name }}
+        resources: {}
+      imagePullSecrets:
+      - name: regcred

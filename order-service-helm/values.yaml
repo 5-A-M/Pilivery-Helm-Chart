@@ -1,0 +1,14 @@
+deployment:
+  orderService:
+    image:
+      repository: 829721034047.dkr.ecr.ap-northeast-2.amazonaws.com/order-service
+      tag: "12"
+    imagePullPolicy: Always
+  replicas: 1
+kubernetesClusterDomain: cluster.local
+service:
+  name: order-service
+  ports:
+  - port: 8080
+    targetPort: 0
+  type: ClusterIP
