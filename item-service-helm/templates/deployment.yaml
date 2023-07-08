@@ -18,15 +18,11 @@ spec:
       {{- include "item-service-helm.selectorLabels" . | nindent 8 }}
     spec:
       containers:
-      - env:
-        - name: KUBERNETES_CLUSTER_DOMAIN
-          value: {{ quote .Values.kubernetesClusterDomain }}
-        image: {{ .Values.deployment.itemService.image.repository }}:{{ .Values.deployment.itemService.image.tag | default .Chart.AppVersion }}
+      - name: {{ .Values.service.name }}
+        image: "{{ $.Values.deployment.itemService.image.repository }}:{{ $.Values.deployment.orderService.image.tag }}"
         imagePullPolicy: {{ .Values.deployment.itemService.imagePullPolicy }}
-        name: {{ .Values.service.type }}
         ports:
-        - containerPort: 8080
-          name: {{ .Values.service.type }}
-        resources: {}
+          - name: {{ .Values.service.name }}
+            containerPort: 8080
       imagePullSecrets:
       - name: regcred
