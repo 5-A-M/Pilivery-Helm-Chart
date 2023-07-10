@@ -1,4 +1,5 @@
 kubernetesClusterDomain: cluster.local
+namespace: app
 ingress:
   type: "nginx"
   clusterissuer: letsencrypt-prod
