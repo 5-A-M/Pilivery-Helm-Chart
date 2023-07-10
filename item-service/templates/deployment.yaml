@@ -4,18 +4,18 @@ metadata:
   namespace: {{ .Values.namespace }}
   name: {{ include "item-service.fullname" . }}
   labels:
-    app: {{ .Values.service.type }}
+    app: {{ .Values.service.name }}
   {{- include "item-service.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.deployment.replicas }}
   selector:
     matchLabels:
-      app: {{ .Values.service.type }}
+      app: {{ .Values.service.name }}
     {{- include "item-service.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       labels:
-        app: {{ .Values.service.type }}
+        app: {{ .Values.service.name }}
       {{- include "item-service.selectorLabels" . | nindent 8 }}
     spec:
       containers:
