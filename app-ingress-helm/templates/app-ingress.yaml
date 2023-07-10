@@ -1,0 +1,34 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ include "app-ingress-helm.fullname" . }}-app-ingress
+  labels:
+  {{- include "app-ingress-helm.labels" . | nindent 4 }}
+  annotations:
+    cert-manager.io/cluster-issuer: {{ .Values.ingress.clusterissuer }}
+    ingress.kubernetes.io/ssl-redirect: "true"
+    kubernetes.io/ingress.class: {{ .Values.ingress.type }}
+    kubernetes.io/tls-acme: "true"
+    nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+spec:
+  rules:
+  - host: www.devycha.com
+    http:
+      paths:
+      {{- range .Values.ingress.service }}
+      {{- $name := .name }}
+      {{- $port := .port }}
+      {{- range .paths }}
+      - path: {{ .path }}
+        pathType: {{ .type }}
+        backend:
+          service:
+            name: {{ $name }}
+            port:
+              number: {{ $port }}
+      {{- end }}
+      {{- end }}
+  tls:
+  - hosts:
+    - www.devycha.com
+    secretName: app-certificate

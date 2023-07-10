@@ -1,0 +1,36 @@
+kubernetesClusterDomain: cluster.local
+ingress:
+  type: "nginx"
+  clusterissuer: letsencrypt-prod
+  service:
+    - name: user-service
+      port: 8080
+      paths:
+      - path: /users
+        type: Prefix
+    - name: order-service
+      port: 8080
+      paths: 
+      - path: /orders
+        type: Prefix
+      - path: /payments
+        type: Prefix
+      - path: /schedule
+        type: Prefix
+    - name: item-service
+      port: 8080
+      paths:
+      - path: /main
+        type: Prefix
+      - path: /carts
+        type: Prefix
+      - path: /category
+        type: Prefix
+      - path: /items
+        type: Prefix
+      - path: /talks
+        type: Prefix
+      - path: /reviews
+        type: Prefix
+      - path: /wishes
+        type: Prefix
