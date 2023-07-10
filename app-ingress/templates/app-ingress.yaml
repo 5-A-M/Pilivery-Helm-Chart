@@ -2,9 +2,9 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   namespace: {{ .Values.namespace }}
-  name: {{ include "app-ingress-helm.fullname" . }}-app-ingress
+  name: {{ include "app-ingress.fullname" . }}-app-ingress
   labels:
-  {{- include "app-ingress-helm.labels" . | nindent 4 }}
+  {{- include "app-ingress.labels" . | nindent 4 }}
   annotations:
     cert-manager.io/cluster-issuer: {{ .Values.ingress.clusterissuer }}
     ingress.kubernetes.io/ssl-redirect: "true"
