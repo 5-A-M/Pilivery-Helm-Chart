@@ -1,4 +1,5 @@
-deployment:
+namespace: app
+deployment:  
   itemService:
     image:
       repository: 829721034047.dkr.ecr.ap-northeast-2.amazonaws.com/item-service

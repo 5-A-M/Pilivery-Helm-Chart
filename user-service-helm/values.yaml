@@ -1,3 +1,4 @@
+namespace: app
 deployment:
   name: user-service
   replicas: 2
