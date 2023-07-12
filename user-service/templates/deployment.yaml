@@ -6,22 +6,29 @@ metadata:
   labels:
     app: {{ .Values.deployment.name }}
   {{- include "user-service.labels" . | nindent 4 }}
+    resource: {{ .Values.labels.resource }}
 spec:
-  replicas: {{ .Values.deployment.replicas }}
   selector:
     matchLabels:
       app: {{ .Values.deployment.name }}
     {{- include "user-service.selectorLabels" . | nindent 6 }}
+      resource: {{ .Values.selector.matchLabels.resource }}
   template:
     metadata:
       labels:
         app: {{ .Values.deployment.name }}
       {{- include "user-service.selectorLabels" . | nindent 8 }}
+        resource: {{ .Values.template.metadata.labels.resource }}
     spec:
       containers:
       - name: {{ .Values.service.name }}
         image: "{{ $.Values.deployment.userService.image.repository }}:{{ $.Values.deployment.userService.image.tag }}"
         imagePullPolicy: {{ .Values.deployment.userService.imagePullPolicy }}
+        resources:
+          requests:
+            cpu: {{ .Values.resources.requests.cpu }}
+          limits:
+            cpu: {{ .Values.resources.limits.cpu }}
         ports:
           - name: {{ .Values.service.name }}
             containerPort: 8080

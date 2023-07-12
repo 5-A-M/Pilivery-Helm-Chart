@@ -6,22 +6,29 @@ metadata:
   labels:
     app: {{ .Values.service.name }}
   {{- include "order-service.labels" . | nindent 4 }}
+    resource: {{ .Values.labels.resource }}
 spec:
-  replicas: {{ .Values.deployment.replicas }}
   selector:
     matchLabels:
       app: {{ .Values.service.name }}
     {{- include "order-service.selectorLabels" . | nindent 6 }}
+      resource: {{ .Values.selector.matchLabels.resource }}
   template:
     metadata:
       labels:
         app: {{ .Values.service.name }}
       {{- include "order-service.selectorLabels" . | nindent 8 }}
+        resource: {{ .Values.template.metadata.labels.resource }}
     spec:
       containers:
       - name: {{ .Values.service.name }}
         image: "{{ $.Values.deployment.orderService.image.repository }}:{{ $.Values.deployment.orderService.image.tag }}"
         imagePullPolicy: {{ .Values.deployment.orderService.imagePullPolicy }}
+        resources:
+          requests:
+            cpu: {{ .Values.resources.requests.cpu }}
+          limits:
+            cpu: {{ .Values.resources.limits.cpu }}        
         ports:
           - name: {{ .Values.service.name }}
             containerPort: 8080

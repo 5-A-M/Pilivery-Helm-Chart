@@ -8,9 +8,36 @@ deployment:
       tag: 1.0.0134
     imagePullPolicy: Always
 kubernetesClusterDomain: cluster.local
+
 service:
   name: user-service
   ports:
   - port: 8080
     targetPort: 0
   type: ClusterIP
+  selector:
+    resource: cpu
+
+labels:
+  resource: cpu
+
+selector:
+  matchLabels:
+    resource: cpu
+
+template:
+  metadata:
+    labels:
+      resource: cpu
+
+resources:
+  requests:
+    cpu: 600m
+  limits:
+    cpu: 800m
+
+autoscaling:
+  enabled: true
+  minReplicas: 2
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 80
