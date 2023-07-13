@@ -5,10 +5,12 @@ metadata:
   name: {{ include "user-service.fullname" . }}
   labels:
   {{- include "user-service.labels" . | nindent 4 }}
+    resource: {{ .Values.labels.resource }}
 spec:
   type: {{ .Values.service.type }}
   selector:
     app: user-service
   {{- include "user-service.selectorLabels" . | nindent 4 }}
+    resource: {{ .Values.service.selector.resource }}
   ports:
 	{{- .Values.service.ports | toYaml | nindent 2 -}}
