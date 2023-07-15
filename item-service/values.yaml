@@ -6,6 +6,12 @@ deployment:
       tag: 1.0.19
     imagePullPolicy: Always
   replicas: 2
+  readinessProbe:
+    httpGet:
+      path: /health
+      port: 8080
+    initialDelaySeconds: 10
+    periodSeconds: 5
 kubernetesClusterDomain: cluster.local
 
 service:
@@ -35,11 +41,10 @@ resources:
     memory: 1000Mi
   limits:
     cpu: 1500m
-    memory: 1500Mi
+    memory: 2000Mi
 
 autoscaling:
   enabled: true
   minReplicas: 2
   maxReplicas: 10
-  # targetMemoryUtilizationPercentage: 40
   targetCPUUtilizationPercentage: 60
