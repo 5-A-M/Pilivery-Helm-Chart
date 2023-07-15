@@ -8,6 +8,7 @@ deployment:
   replicas: 2
 kubernetesClusterDomain: cluster.local
 
+
 service:
   name: item-service
   ports:
@@ -15,19 +16,19 @@ service:
       targetPort: 0
   type: ClusterIP
   selector:
-    resource: cpu
+    resource1: hpa
 
 labels:
-  resource: cpu
+  resource: hpa
 
 selector:
   matchLabels:
-    resource: cpu
+    resource: hpa
 
 template:
   metadata:
     labels:
-      resource: cpu
+      resource: hpa
 
 resources:
   requests:
@@ -41,4 +42,5 @@ autoscaling:
   enabled: true
   minReplicas: 2
   maxReplicas: 10
+  targetMemoryUtilizationPercentage: 60
   targetCPUUtilizationPercentage: 80
