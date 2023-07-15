@@ -15,19 +15,19 @@ service:
       targetPort: 0
   type: ClusterIP
   selector:
-    resource: hpa
+    resource: cpu
 
 labels:
-  resource: hpa
+  resource: cpu
 
 selector:
   matchLabels:
-    resource: hpa
+    resource: cpu
 
 template:
   metadata:
     labels:
-      resource: hpa
+      resource: cpu
 
 resources:
   requests:
@@ -41,5 +41,5 @@ autoscaling:
   enabled: true
   minReplicas: 2
   maxReplicas: 10
-  targetMemoryUtilizationPercentage: 40
+  # targetMemoryUtilizationPercentage: 40
   targetCPUUtilizationPercentage: 60
