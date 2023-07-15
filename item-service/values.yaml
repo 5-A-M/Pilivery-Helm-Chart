@@ -32,10 +32,10 @@ template:
 resources:
   requests:
     cpu: 1200m
-    memory: 1500Mi
+    memory: 1000Mi
   limits:
     cpu: 1500m
-    memory: 2500Mi
+    memory: 1500Mi
 
 autoscaling:
   enabled: true
