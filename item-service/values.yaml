@@ -16,7 +16,7 @@ service:
       targetPort: 0
   type: ClusterIP
   selector:
-    resource1: hpa
+    resource: hpa
 
 labels:
   resource: hpa
