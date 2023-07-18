@@ -32,5 +32,11 @@ spec:
         ports:
           - name: {{ .Values.service.name }}
             containerPort: 8080
+        readinessProbe:
+          httpGet:
+            path: {{ .Values.deployment.readinessProbe.httpGet.path }}
+            port: {{ .Values.deployment.readinessProbe.httpGet.port }}
+          initialDelaySeconds: {{ .Values.deployment.readinessProbe.initialDelaySeconds }}
+          periodSeconds: {{ .Values.deployment.readinessProbe.periodSeconds }}
       imagePullSecrets:
       - name: regcred
