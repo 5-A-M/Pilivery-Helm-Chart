@@ -47,4 +47,4 @@ autoscaling:
   enabled: true
   minReplicas: 2
   maxReplicas: 10
-  targetCPUUtilizationPercentage: 60
+  targetCPUUtilizationPercentage: 80

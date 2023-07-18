@@ -10,12 +10,6 @@ spec:
     kind: Deployment
     name: item-service
   metrics:
-  # - type: Resource
-  #   resource:
-  #     name: memory
-  #     target:
-  #       type: Utilization
-  #       averageUtilization: {{ .Values.autoscaling.targetMemoryUtilizationPercentage }}
   - type: Resource 
     resource:
       name: cpu
